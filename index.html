@@ -29,14 +29,66 @@
 				<section data-markdown="markdown/broker.md"></section>
 				<section data-markdown="markdown/securite_paper.md"></section>
 				<section data-markdown="markdown/types.md"></section>
-				<section data-markdown="markdown/investment_portfolio.md"></section><section data-markdown="markdown/.md"></section>
+				<section data-markdown="markdown/investment_portfolio.md"></section>
 				<section data-markdown="markdown/diversification.md"></section>
 				<section data-markdown="markdown/spread.md"></section>
 				<section data-markdown="markdown/bull_and_bear.md"></section>
 				<section data-markdown="markdown/bull.md"></section>
 				<section data-markdown="markdown/bear.md"></section>
 				<section data-markdown="markdown/flat.md"></section>
-				<section data-markdown="markdown/rate_of_return.md"></section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							### Доходность по методу Дитца
+							Введём обозначения:
+							* $R$ - доходность портфеля в процентах;
+							* $S_e$ - стоимость портфеля на конец периода;
+							* $S_b$ - стоимость портфеля на начало периода;
+							* $S_a$ - пополнение счета;
+							* $S_w$ - снятие со счета;
+							* $W_t$ - временной вечовой коэффициент, который применяется к каждому денежному потоку в портфеле;
+							* $T$ - длительность отчетного периода в днях, за который считается доходность;
+							* $t$ - количество дней с начала инвестирования;
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							### Доходность по методу Дитца
+							$$ W_t=\dfrac{T-t}{T} $$
+							$$ R=\dfrac{S_e-S_b-\sum S_a+\sum(S_w)}{S_b-\sum (S_aW_t) - \sum (S_wW_t)} $$
+						</script>
+					</section>
+				</section>
+				<section class="center">
+					<h2>Графики</h2>
+				</section>
+				<section>
+					<section data-markdown="markdown/line_chart.md"></section>
+					<section data-markdown="markdown/candiestick.md"></section>
+					<section data-fullscreen data-menu-title="Свечной график">
+						<iframe data-src="html/candlestick.html" class="stretch"></iframe>
+					</section>
+				</section>
+				<section>
+					<h2>Монополия</h2>
+				</section>
+				<section data-fullscreen data-menu-title="Монополия">
+					<iframe data-src="html/monopoly.html" class="stretch"></iframe>
+				</section>
+				<!-- Обычная картинка -->
+				<section>
+					<h2>Юмор</h2>
+					<img src="html\img\umor2.jpg" height="400px" data-menu-title="Футурама">
+				</section>
+				<!-- Вертикальная картинка -->
+				<section data-background-image="html\img\umor3.jpg" data-background-size="contain" data-menu-title="Винни-Пух">
+				</section>
+				<!-- Картинка высокого качества -->
+				<section data-background-image="html\img\umor1.jpg" data-menu-title="Оскар">
+				</section>
+				<section class="center" data-menu-title="Заключение">
+					Спасибо за внимание!
+				</section>
 			</div>
 		</div>
 
@@ -55,10 +107,14 @@
 				consols: true,
 				dependencies: [
 					{
-						scr:'plugin/menu/menu.js'
+						src:'plugin/menu/menu.js'
 					},
 					{
-						scr:'plugin/fullscreen.js'
+						src:'plugin/fullscreen.js'
+					},
+					{
+						src:'plugin/katex/katex.js',
+						async: true,
 					},
 				],
 				menu:{
