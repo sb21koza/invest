@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrapper{
+            position: relative;
+
+        }
+        #send{
+            width: 100%;
+            height: 60px;
+            display: flex;
+            position: fixed;
+            bottom: 0;
+        }
+        #send_messege{
+            width: 150px;
+            font-size: 20px;
+            color: fuchsia;
+            background-color:black;
+            cursor: pointer;
+        }
+        #messege{
+            font-size: 20px;
+            line-height: 60px;
+            width: inherit;
+        }
+        #chat{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            margin-bottom: 60px;
+        }
+        .messege{
+            width: fit-content;
+            background-color: aliceblue;
+            border: 1px solid #999;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="chat">
+            <div class="messege">
+                txt
+            </div>
+        </div>
+        <div id="send">
+            <input type="text" id="messege">
+            <input type="button" value="Отправить" id="sent_messege">
+        </div>
+    </div>
+    <script>
+        function newMessege(text){
+            let div = document.createElement('div');
+            div.className = 'messege';
+            div.innerHTML = text;
+            document.querySelector('#chat').appendChild(div);
+        }
+
+        for (let i = 0; i < 25; i++)
+        {
+            newMessege('text'+i);
+        }
+    </script>
+</body>
+</html>
