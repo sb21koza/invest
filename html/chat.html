@@ -21,14 +21,14 @@
             position: fixed;
             bottom: 0;
         }
-        #sent_messege{
+        #send_message{
             width: 150px;
             font-size: 20px;
             color: fuchsia;
             background-color:black;
             cursor: pointer;
         }
-        #messege{
+        #message{
             font-size: 20px;
             line-height: 60px;
             width: inherit;
@@ -40,7 +40,7 @@
             justify-content: end;
             margin-bottom: 60px;
         }
-        .messege{
+        .message{
             width: fit-content;
             background-color: aliceblue;
             border: 1px solid #999;
@@ -53,27 +53,48 @@
 <body>
     <div id="wrapper">
         <div id="chat">
-            <div class="messege">
+            <div class="message">
                 txt
             </div>
         </div>
         <div id="send">
-            <input type="text" id="messege">
-            <input type="button" value="Отправить" id="sent_messege">
+            <input type="text" id="message">
+            <input type="button" value="Отправить" id="send_message">
         </div>
     </div>
     <script>
-        function newMessege(text){
+        function newMessage(text){
             let div = document.createElement('div');
-            div.className = 'messege';
+            div.className = 'message';
             div.innerHTML = text;
             document.querySelector('#chat').appendChild(div);
         }
 
-        for (let i = 0; i < 25; i++)
-        {
-            newMessege('text'+i);
+        function sendMessage(){
+            let message = document.querySelector('#message');
+            let text = message.value;
+            if(text.trim().length > 0){
+                newMessage(text);
+                message.value = '';
+            }
         }
+
+        function sendMessageKeyUp(e){
+            if (e.code == 'Enter'){
+                sendMessage();
+            }
+        }
+
+        window.onload = ()=> {
+            document.querySelector('#send_message').onclick = 
+            sendMessage;
+            document.querySelector('#message').onkeyup = sendMessageKeyUp;
+        }
+
+        //for (let i = 0; i < 25; i++)
+        //{
+         //   newMessege('text'+i);
+        //}
     </script>
 </body>
 </html>

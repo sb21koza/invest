@@ -56,6 +56,12 @@
         td{
             padding: 5px;
         }
+        #wapper{
+            font-size: 13px;
+        }
+        .vacation{
+            background-color: #f92672;
+        }
     </style>
 </head>
 <body>
@@ -123,8 +129,8 @@
             </div>
             <div>
                 <label for="fio">Пол</label>
-                <input type="radio" id="gender" name="gender" value="male">Мужской 
-                <input type="radio" id="gender" name="gender" value="famale" checked>Женский 
+                <input type="radio" name="gender" value="male">Мужской 
+                <input type="radio" name="gender" value="famale" checked>Женский 
             </div>
             <div>
                 <label for="school">Школа</label>
@@ -150,10 +156,17 @@
                 <label for="email">Email</label>
                 <input type="text" id="email" name="email" value="goodblanket40@gmail.com"> 
             </div>
+            <div>
+                <input type = "submit" id="create" value="Создать">
+            </div>
+        </From>
     </div>
-    <div id="Bux">
+
+    <div id="accounting">
         <h2 class="exelent">Бухгалтерия</h2>
+        <div id="wrapper"></div>
     </div>
+    
     <div class="cat"></div>
     #father>.son*2 TAB 
 <div id="father">
@@ -339,11 +352,97 @@
                 return tax < 1? 1: tax;
             }
             function yearSalary(netSalary, salary13){
-                return +(11*netSalary + 0.87*salary13).toFixed;
+                return +(11*netSalary + 0.87*salary13).toFixed(2);
             }
             function netSalary(salary){
                 return+(salary*1.15*0.87).toFixed(2);
             }
+
+            let table = `
+            <table><thead>
+                <tr>
+                    <th>№</th>
+                    <th>ФИО</th>
+                    <th>Дата рождения</th>
+                    <th>Возраст</th>
+                    <th>Зарплата до вычета налогов</th>`;
+                    for(let j in monthList){
+                        table += `<th>${monthList[j][1]}</th>`;
+                    }
+
+                    table += `
+                    <th>Зарплата в 2025 году</th>
+                    <th>Общий доход</th>
+                    <th>К вычету</th>
+                    <th>Ост. до пенсии</th>
+                </tr>
+            </thead>
+            <tbody>
+                `;
+
+                
+                for (let i in list){
+                    let ys = yearSalary(netSalary(list[i].salary),list[i].salary13);
+                    let rtp = remainstoPension(list[i].gender, age(list[i].birthday))[0];
+                    table += `
+                    <tr>
+                        <td>${+i+1}</td>;
+                        <td>${list[i].surname} ${list[i].name} ${list[i].patronymic}</td>
+                        <td>${birthday(list[i].birthday, monthList)}</td>
+                        <td>${age(list[i].birthday)[0]} ${ageCase(age(list[i].birthday)[0])}</td>
+                        <td>${list[i].salary}&#x20bd;</td>`;
+
+                        for(let j=0; j<11; j++){
+                            table+=`<td ${j == list[i].vacation ? 'class="vacation"' :
+                             ''}>${netSalary(list[i].salary)}&#x20bd;</td>`;
+                        }
+                        table+= `
+                        <td ${11 == list[i].vacation ? 'class="vacation"' :
+                             ''}>${netSalary(list[i].salary) + netSalary(list[i].salary13)}&#x20bd;</td>}</td>
+                        <td>${newSalary(list[i].salary)}</td>
+                        <td>${ys}</td>
+                        <td>${taxReturn(ys)}&#x20bd;</td>
+                        <td>${rtp > 0 ? rtp + ageCase(rtp): 'на пенсии'}</td>
+                    </tr>
+                    `;
+                }
+
+        table += `</thbody></table>`;
+        document.querySelector('#wrapper').innerHTML = table;
+
+        function ageCase(age){
+            if(age % 10 === 1 && age % 100 !== 11){
+                return 'год';
+            }
+            else if((age%10 === 2 || age%10 === 3 || age%10 === 4) && age%100 !==12 && age % 100 !== 13 && age % 100 !==14){
+                return 'года';
+            }
+            else{return 'лет';}
+        }
+
+        document.querySelector('#create').onclick = (e) => {
+            e.preventDefault();
+            let newWin = window.open("about:bank", 'Дневник', "width=420, height=594");
+            let template = `
+            <style>
+                body{
+                text-aling: center;
+                font-size: large;
+                maring-top: 100px;
+                background-color: ${document.querySelector('#color').value};
+                }
+            </style>
+            <h1>Дневник</h1>
+            <div>Учен ${document.querySelector('[name=gender]:checked').value == 'male' ? 'ика' : 'ицы'} ${document.querySelector('#class').value}класса</div>
+            <div>${document.querySelector('#school').value}</div>
+            <div>${document.querySelector('#locality').value}</div>
+            <div>${document.querySelector('#fio').value}</div>
+            <div>${document.querySelector('[name="year"]').value}/${+document.querySelector('[name="year"]').value+1} учебного года</div>
+            <div>${document.querySelector('#email').value}</div>
+
+            `;
+            newWin.document.write(template);
+        }
                 
 </script>
 </body>
